@@ -1,0 +1,18 @@
+
+.imgConteiner{
+    transition: all 0.3s ease-in-out;
+}
+
+.imgConteiner:hover{
+    filter: none;
+    -webkit-filter: grayscale(85%);
+}
+
+a{
+    text-decoration: none;
+    color: white;
+}
+
+body{
+    background-color: #212529;
+}

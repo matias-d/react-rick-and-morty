@@ -4,21 +4,23 @@ import { Character } from './Character';
 
 function NavPage({page, onPage}){
    return(
-    <header className='d-flex justify-content-between align-items-center'>
-        <button 
-        onClick={() => onPage(page - 1) }
-        className='btn btn-primary btn-s'>
-        Previous Page
-        </button>
+    <div className='d-flex justify-content-between py-4'>
 
-        <p className='font-weight-bold'>page {page}</p>    
-
-        <button 
-        onClick={() => onPage(page + 1)}
-        className='btn btn-primary btn-s'>
-        Next Page
-        </button> 
-    </header>   
+        {
+            page === 1 ? 
+            (<button className='btn btn-primary btn-sm'
+            onClick={null}
+            >Previous Page</button>)
+            :
+            <button className='btn btn-primary btn-sm'
+            onClick={() => onPage(page - 1)}
+            >Previous Page</button>
+        }
+            <p>Page {page}</p>
+            <button className='btn btn-primary btn-sm'
+            onClick={() => onPage(page + 1)}
+            >Next Page</button>
+    </div>
    ) 
 }
 
@@ -48,13 +50,13 @@ export const CharacterList = () => {
     <NavPage page={page} onPage={setPage}/>
 
         {
-            loading ? <h1>Loading...</h1>
+            loading ? <h1 className='text-center display-1'>Loading...</h1>
             : <div className='row'>
                 {
                 character.map(character =>{
                     return(
-                        <div className='col-md-4' key={character.id}>
-                            <Character character={character}/>
+                        <div className='col-md-4'>
+                            <Character key={character.id} character={character}/>
                         </div>
                     )
                 })
