@@ -1,6 +1,6 @@
 import React,{ useState, useEffect} from 'react'
+import { useQuery } from '../hooks/useQuery';
 import { Character } from './Character';
-
 
 function NavPage({page, onPage}){
    return(
@@ -23,17 +23,22 @@ function NavPage({page, onPage}){
     </div>
    ) 
 }
-
-
+  
 export const CharacterList = () => {
 
     const [character, setCharacter] = useState([]);
     const [loading, setLoading] = useState(true);
     const [page, setPage] = useState(1);
 
+    const query = useQuery()
+    const search = query.get('search')
+
     useEffect(() => {
         async function fetchData(){
-          const response = await fetch(`https://rickandmortyapi.com/api/character?page=${page}`)
+            const URLsearch = search ? `https://rickandmortyapi.com/api/character/?page=${page}&name=${search}&status=alive`
+            : `https://rickandmortyapi.com/api/character?page=${page}`;
+
+          const response = await fetch(URLsearch)
     
           const data = await response.json()
             
@@ -42,7 +47,8 @@ export const CharacterList = () => {
         }
     
         fetchData()
-      }, [page]);
+      }, [page, search]);
+
 
   return (
     <div className='container'>
